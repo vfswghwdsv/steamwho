@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Indovinator</title>
+
+  <style>
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #000010, #000020);
+      margin: 0;
+      padding: 0;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      filter: brightness(0.3) blur(5px);
+      z-index: -1;
+    }
+
+    .immagine-titolo {
+      display: block;
+      margin: 0 auto;
+      max-width: 60%;
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .schermata-centrata {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 10px;
+    }
+
+    .immagine-genio {
+      width: 300px;
+      max-width: 80%;
+      margin-top: 150px;
+      filter: drop-shadow(0 0 15px #00ffffaa);
+      border-radius: 15px;
+    }
+
+    .pannello-vetro {
+      background: rgba(0, 0, 139, 0.6);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 15px cyan;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 300px;
+      width: 85%;
+    }
+
+    .bottone {
+      font-size: 1rem;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(145deg, aqua, blue);
+      color: black;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 15px aqua;
+      margin: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .bottone:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, #00ffff, #0033aa);
+      box-shadow: 0 0 25px #00ffffcc;
+    }
+
+    .schermata-login {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+    }
+
+    .schermata-login.attiva {
+      display: flex;
+    }
+
+    .modulo-login {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 16px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 30px rgb(0, 255, 242);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 300px;
+      width: 90%;
+    }
+
+    .modulo-login input {
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .modulo-login input::placeholder {
+      color: #ccc;
+    }
+
+    .modulo-login h2 {
+      color: aqua;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px aqua;
+    }
+
+    @media (max-width: 600px) {
+      .immagine-titolo {
+        top: -60px;
+        max-width: 70%;
+      }
+      .immagine-genio {
+        width: 180px;
+        margin-top: 130px;
+      }
+      .pannello-vetro {
+        max-width: 90%;
+        padding: 16px;
+      }
+      .bottone {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+      }
+      .modulo-login {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <img src="titolo.png" alt="Titolo" class="immagine-titolo">
+
+
+  <div id="schermataHome" class="schermata-centrata">
+    <img src="A_2D_digital_illustration_features_a_cartoon_genie.png" alt="Genio" class="immagine-genio">
+    <div class="pannello-vetro">
+     
+      <button class="bottone" onclick="mostraLogin()">🔐 Accedi</button>
+      <button class="bottone" onclick="mostraRegistrazione()">🆕 Registrati</button>
+    </div>
+  </div>
+
+  
+  <div id="schermataLogin" class="schermata-login">
+    <form class="modulo-login" onsubmit="accedi(event)">
+      <h2>Accesso Utente</h2>
+      <input type="text" id="nomeUtente" placeholder="Nome utente" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button class="bottone" type="submit">➡️ Entra</button>
+      <button type="button" class="bottone" onclick="tornaHome()">🏠 Torna alla Home</button>
+    </form>
+  </div>
+
+
+  <div id="schermataRegistrazione" class="schermata-login">
+    <form class="modulo-login" onsubmit="registrati(event)">
+      <h2>Registrazione</h2>
+      <input type="text" id="regNomeUtente" placeholder="Nome utente" required>
+      <input type="password" id="regPassword" placeholder="Password (min. 6 lettere e 1 numero)" required>
+      <button class="bottone" type="submit">✅ Registrati</button>
+      <button type="button" class="bottone" onclick="tornaHome()">🏠 Torna alla Home</button>
+    </form>
+  </div>
+
+  
+  <script>
+    function mostraLogin() {
+      document.getElementById('schermataHome').style.display = 'none';
+      document.getElementById('schermataLogin').classList.add('attiva');
+      document.getElementById('schermataRegistrazione').classList.remove('attiva');
+    }
+
+    function mostraRegistrazione() {
+      document.getElementById('schermataHome').style.display = 'none';
+      document.getElementById('schermataLogin').classList.remove('attiva');
+      document.getElementById('schermataRegistrazione').classList.add('attiva');
+    }
+
+    function tornaHome() {
+      document.getElementById('schermataLogin').classList.remove('attiva');
+      document.getElementById('schermataRegistrazione').classList.remove('attiva');
+      document.getElementById('schermataHome').style.display = 'flex';
+    }
+
+    function registrati(event) {
+      event.preventDefault();
+      const nome = document.getElementById('regNomeUtente').value.trim();
+      const password = document.getElementById('regPassword').value;
+
+      const regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+      if (!regex.test(password)) {
+        alert("La password deve contenere almeno 6 caratteri, una lettera e un numero.");
+        return;
+      }
+
+      const utente = { nome, password };
+      localStorage.setItem("utenteRegistrato", JSON.stringify(utente));
+      alert("Registrazione completata!");
+      tornaHome();
+    }
+
+    function accedi(event) {
+      event.preventDefault();
+      const nome = document.getElementById('nomeUtente').value.trim();
+      const password = document.getElementById('password').value;
+
+      const utenteSalvato = JSON.parse(localStorage.getItem("utenteRegistrato"));
+      if (!utenteSalvato || utenteSalvato.nome !== nome || utenteSalvato.password !== password) {
+        alert("Nome utente o password errati!");
+        return;
+      }
+
+      window.location.href = 'seleziona-personaggio.html';
+    }
+
+    
+    setInterval(() => {
+      document.querySelectorAll('.bottone').forEach(btn => {
+        btn.style.boxShadow = btn.style.boxShadow ? '' : '0 0 25px #00ffffcc';
+      });
+    }, 1000);
+  </script>
+
+</body>
+</html>
